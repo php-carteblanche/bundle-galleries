@@ -1,0 +1,84 @@
+<?php
+if (empty($_app)) $_app=array();
+if (empty($_globals)) $_globals=array();
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+<?php if (!empty($_globals['robots'])) : ?>
+	<meta name="robots" content="<?php echo $_globals['robots']; ?>" />
+<?php endif; ?>
+	<title><?php
+		echo strip_tags( !empty($title) ? $title.' - ' : '').( !empty($_globals['meta_title']) ? $_globals['meta_title'] : '');
+	?></title>
+<?php if (file_exists(_ASSETS.'img/favicon.ico')): ?>
+	<link rel="icon" href="<?php echo _ASSETS.'img/favicon.ico'; ?>" type="image/x-icon" />
+	<link rel="shortcut icon" href="<?php echo _ASSETS.'img/favicon.ico'; ?>" type="image/x-icon" />
+<?php endif; ?>
+<?php if (file_exists(_ASSETS.'css/simple_viewer/styles.css')): ?>
+	<link rel="stylesheet" type="text/css" href="<?php echo _ASSETS.'css/simple_viewer/styles.css'; ?>" />
+<?php endif; ?>
+<?php if (file_exists(_ASSETS.'js/scripts.js')): ?>
+	<script type="text/javascript" src="<?php echo _ASSETS.'js/scripts.js'; ?>"></script>
+<?php endif; ?>
+<?php if (file_exists(_ASSETS.'js/jquery/jquery-last.min.js')): ?>
+	<script type="text/javascript" src="<?php echo _ASSETS.'js/jquery/jquery-last.min.js'; ?>"></script>
+<?php endif; ?>
+<?php if (!empty($_globals['meta_description'])) : ?>
+	<meta name="description" content="<?php echo $_globals['meta_description']; ?>" />
+<?php endif; ?>
+<?php if (!empty($_globals['meta_keywords'])) : ?>
+	<meta name="keywords" content="<?php echo $_globals['meta_keywords']; ?>" />
+<?php endif; ?>
+<?php if (!empty($_app['author'])) : ?>
+	<meta name="author" content="<?php echo $_app['author']; ?>" />
+	<?php if (!empty($_app['website'])) : ?>
+	<meta name="copyright" content="<?php echo $_app['author'].' - '.$_app['website']; ?>" />
+	<?php endif; ?>
+<?php endif; ?>
+<?php if (!empty($_app['name'])) : ?>
+	<meta name="generator" content="<?php echo $_app['name'].' '.$_app['version']; ?>" />
+<?php endif; ?>
+</head>
+<body>
+
+<?php if (!empty($menu)) : ?>
+	<div id="page_menu" class="menu"><ul>
+	<?php foreach($menu as $entry_link=>$entry_text) : ?>
+		<li><a href="<?php echo $entry_link; ?>"><?php echo $entry_text; ?></a></li>
+	<?php endforeach; ?>
+	</ul></div>
+<?php endif; ?>
+
+	<div id="page_content" class="content">
+
+	<?php if (!empty($flash_message)) : ?>
+		<div class="<?php echo( !empty($flash_message_class) ? $flash_message_class : 'ok' ); ?>_message">
+		<?php echo $flash_message; ?>
+		</div>
+	<?php endif; ?>
+
+	<?php echo $output; ?>
+
+	</div>
+
+	<div id="page_footer" class="footer">
+<?php if (!empty($footer)) : ?>
+	<?php echo $footer; ?>
+<?php else: ?>
+  <?php echo view( 'footer.htm', array(
+  	'_app'=>$_app,
+  	'_config'=>$_config,
+  	'altdb'=>$altdb,
+  	'db_queries'=>$db_queries,
+  	'router_views'=>$router_views,
+  	'usersession'=>$usersession,
+	'controller'=>$controller,
+	'action'=>$action,
+  ) ); ?>
+<?php endif; ?>
+	</div>
+
+</body>
+</html>
