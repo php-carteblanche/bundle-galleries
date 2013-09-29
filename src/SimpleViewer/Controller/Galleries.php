@@ -10,7 +10,7 @@
 namespace SimpleViewer\Controller;
 
 use \CarteBlanche\CarteBlanche;
-use \CarteBlanche\App\Abstracts\AbstractControllerConfigurable;
+use \CarteBlanche\Abstracts\AbstractControllerConfigurable;
 use \CarteBlanche\Model\DirectoryModel;
 use \CarteBlanche\Model\ImageModel;
 

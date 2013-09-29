@@ -10,7 +10,7 @@
 namespace SimpleViewer\Tool;
 
 use \CarteBlanche\CarteBlanche;
-use \CarteBlanche\App\Abstracts\AbstractTool;
+use \CarteBlanche\Abstracts\AbstractTool;
 
 class SimpleViewer extends AbstractTool
 {

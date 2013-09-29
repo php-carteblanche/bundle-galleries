@@ -9,7 +9,7 @@
 
 namespace SimpleViewer\Tool;
 
-use \CarteBlanche\App\Abstracts\AbstractTool;
+use \CarteBlanche\Abstracts\AbstractTool;
 
 class JwPlayerGallery extends AbstractTool
 {
