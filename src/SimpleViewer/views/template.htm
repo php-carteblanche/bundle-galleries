@@ -12,7 +12,7 @@ if (strlen($assets)) {
 }
 
 $sv_css = \TemplateEngine\TemplateEngine::getInstance()
-    ->getAssetsLoader()->findInPackage('css/styles.css', 'carte-blanche/bundle-simpleviewer');
+    ->getAssetsLoader()->findInPackage('css/styles.css', 'carte-blanche/bundle-galleries');
 $_template->getTemplateObject('CssFile')->add($sv_css);
 
 _use('jquery');
