@@ -3,7 +3,7 @@ CarteBlanche bundle - SimpleViewer
 
 A special bundle to build [SimpleViewer](http://www.simpleviewer.net/) views.
 
-This package is a bundle for the [CarteBlanche framework](https://github.com/php-carteblanche/carteblanche).
+This package is a bundle for the [CarteBlanche framework](http://github.com/php-carteblanche/carteblanche).
 
 
 ## TODO
