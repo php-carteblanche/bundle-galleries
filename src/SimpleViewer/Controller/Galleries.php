@@ -3,16 +3,17 @@
  * CarteBlanche - PHP framework package - Simple Viewer bundle
  * Copyleft (c) 2013 Pierre Cassat and contributors
  * <www.ateliers-pierrot.fr> - <contact@ateliers-pierrot.fr>
- * License GPL-3.0 <http://www.opensource.org/licenses/gpl-3.0.html>
- * Sources <https://github.com/atelierspierrot/carte-blanche>
+ * License Apache-2.0 <http://www.apache.org/licenses/LICENSE-2.0.html>
+ * Sources <http://github.com/php-carteblanche/carteblanche>
  */
 
 namespace SimpleViewer\Controller;
 
 use \CarteBlanche\CarteBlanche;
-use \CarteBlanche\App\Abstracts\AbstractControllerConfigurable;
+use \CarteBlanche\Abstracts\AbstractControllerConfigurable;
 use \CarteBlanche\Model\DirectoryModel;
 use \CarteBlanche\Model\ImageModel;
+use \Library\Helper\Directory as DirectoryHelper;
 
 /**
  * SimpleViewer controller : get gelleries for SimpleViewer
@@ -43,9 +44,11 @@ class Galleries extends AbstractControllerConfigurable
 	{
         $cfg = $this->getConfig();
         if (!empty($cfg) && isset($cfg['galleris_dir'])) {
-            $this->galleries_dir = $cfg['galleris_dir'];
+            $this->galleries_dir = DirectoryHelper::slashDirname($cfg['galleris_dir']);
         } else {
-            $this->galleries_dir = _GALLERIES;
+            $this->galleries_dir = DirectoryHelper::slashDirname(
+                CarteBlanche::getContainer()->get('config')->get('galleries.galleries_dir')
+            );
         }
         $_abs_gal = CarteBlanche::getPath('web_dir').$this->galleries_dir;
         if (!file_exists($_abs_gal)) {
@@ -119,7 +122,7 @@ exit('yo');
 		$galleryURL = $this->getContainer()->get('router')->buildUrl(array('controller'=>'galleries','action'=>'videosGallery', 'dir'=>$dir));
 
 		return array(self::$views_dir.'jw_player_2.htm', array(
-            'vid_url'=>CarteBlanche::getPath('root_http')._GALLERIES.$_dir->getDirname().'/'.$vids_data[$vid],
+            'vid_url'=>CarteBlanche::getPath('root_http').$this->galleries_dir.$_dir->getDirname().'/'.$vids_data[$vid],
 //			'playlist_url'=>$galleryURL,
             'player_key' => isset($jw_player_config['key']) ? $jw_player_config['key'] : null,
 			'title' => $_dir->getDisplayDirname(),
@@ -153,7 +156,7 @@ exit('yo');
 			'current_dir' => $dir,
 			'config' => $jw_player_config,
 			'media' => $img_data,
-			'root_url' => CarteBlanche::getPath('root_http')._GALLERIES.$dir,
+			'root_url' => CarteBlanche::getPath('root_http').$this->galleries_dir.$dir,
 			'gallery_attributes' => array(
 				'title'=>$_dir->getDisplayDirname()
 			)
@@ -223,8 +226,8 @@ exit('yo');
 			'current_dir' => $dir,
 			'config' => $simple_viewer,
 			'images' => $img_data,
-			'root_url' => CarteBlanche::getPath('root_http')._GALLERIES.$dir,
-			'root_path' => CarteBlanche::getPath('web_path')._GALLERIES.$dir,
+			'root_url' => CarteBlanche::getPath('root_http').$this->galleries_dir.$dir,
+			'root_path' => CarteBlanche::getPath('web_path').$this->galleries_dir.$dir,
 			'gallery_attributes' => array(
 				'title'=>$_dir->getDisplayDirname()
 			)

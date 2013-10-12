@@ -1,10 +1,9 @@
 {
     "name": "carte-blanche/bundle-galleries",
     "type": "carte-blanche-bundle",
-    "description": "A special bundle to build SimpleViewer (http://www.simpleviewer.net/) views.",
+    "description": "A special bundle to build medias galleries",
     "keywords": [ "carte blanche", "bundles" ],
     "homepage": "http://github.com/php-carteblanche/bundle-galleries",
-    "version": "0.0.1-dev",
     "license": "Apache-2.0",
     "authors": [{
         "name": "Les Ateliers Pierrot & contributors",
@@ -12,13 +11,12 @@
         "homepage": "http://www.ateliers-pierrot.fr/"
     }],
     "require": {
-        "php": ">=5.3.0",
         "atelierspierrot/patterns": "dev-master",
         "atelierspierrot/library": "dev-master",
-        "carte-blanche/core": "dev-master"
+        "carte-blanche/core": "~0.1"
     },
     "require-dev": {
-        "carte-blanche/core": "dev-wip"
+        "carte-blanche/core": "~0.1@dev"
     },
     "autoload": { 
         "psr-0": { "SimpleViewer": "src" },
@@ -31,6 +29,9 @@
         "assets-dir": "www",
         "views": "src/SimpleViewer/views",
         "views-functions": "src/SimpleViewer/views_aliases.php",
-        "carte-blanche-configs": "config/simpleviewer_config.ini"
+        "carte-blanche-configs": "config/simpleviewer_config.ini",
+        "branch-alias": {
+            "dev-master": "0.1-dev"
+        }
     }
 }
