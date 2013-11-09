@@ -32,9 +32,13 @@ class SimpleViewerBundle
 
         $galleries_web_dir = isset($cfg['galleries_dir']) ? $cfg['galleries_dir'] : null;
         if (!empty($galleries_web_dir)) {
-            DirectoryHelper::ensureExists(
-                DirectoryHelper::slashDirname(CarteBlanche::getPath('web_path')) . $galleries_web_dir
-            );
+            $galleries_path = DirectoryHelper::slashDirname(CarteBlanche::getPath('web_path')) . $galleries_web_dir;
+            @DirectoryHelper::ensureExists($galleries_path);
+            if (!file_exists($galleries_path) || !is_dir($galleries_path)) {
+                CarteBlanche::getKernel()->addBootError(
+                    sprintf("Can't create web directory '%s' for galleries bundle!", $galleries_web_dir)
+                );
+            }
         }
     }
 
