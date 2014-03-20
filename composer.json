@@ -24,7 +24,7 @@
     "extra": {
         "assets-dir": "www",
         "views": "src/Galleries/views",
-        "views-functions": "src/Galleries/views_aliases.php",
+        "views-functions": "src/Galleries/views_functions.php",
         "carte-blanche-configs": "config/galleries_config.ini",
         "branch-alias": {
             "dev-master": "0.1-dev"
