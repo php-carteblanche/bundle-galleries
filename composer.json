@@ -15,17 +15,17 @@
         "carte-blanche/installer": "dev-master"
     },
     "autoload": { 
-        "psr-0": { "SimpleViewer": "src" },
-        "classmap": [ "src/SimpleViewer/Controller" ]
+        "psr-0": { "Galleries": "src" },
+        "classmap": [ "src/Galleries/Controller" ]
     },
     "repositories": [{
         "type": "composer", "url": "http://packagist.ateliers-pierrot.fr/"
     }],
     "extra": {
         "assets-dir": "www",
-        "views": "src/SimpleViewer/views",
-        "views-functions": "src/SimpleViewer/views_aliases.php",
-        "carte-blanche-configs": "config/simpleviewer_config.ini",
+        "views": "src/Galleries/views",
+        "views-functions": "src/Galleries/views_aliases.php",
+        "carte-blanche-configs": "config/galleries_config.ini",
         "branch-alias": {
             "dev-master": "0.1-dev"
         }

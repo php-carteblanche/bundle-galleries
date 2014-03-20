@@ -1,11 +1,10 @@
 <?php
 if (empty($config)) $config=array();
-if (empty($root_url)) $root_url=_ASSETS._GALLERIES;
+if (empty($root_url)) $root_url=_ASSETS.get_path('galleries');
 if (empty($current_dir)) $current_dir='';
 if (empty($gallery_attributes)) $gallery_attributes=array();
 if (empty($gallery_attributes['title'])) $gallery_attributes['title'] = '';
 if (empty($images)) $images=array();
-if (empty($thumbs)) $thumbs=array();
 if (empty($current_page)) $current_page=1;
 if (empty($total_pages)) $total_pages=null;
 
@@ -33,19 +32,15 @@ if (!is_null($total_pages)) {
 }
 $gallery_attributes['title'] .= htmlentities("<br /><br /><font face=\"Arial\" size=\"11\">".$title_adding."</font>");
 ?>
-<simpleviewergallery 
-<?php foreach ($gallery_attributes as $ga_index=>$ga_value) { echo " $ga_index=\"$ga_value\""; } ?>
->
+<channel>
 <?php foreach ($images as $_img) : ?>
-    <?php if (isset($_img['FileName'])) : ?>
   <image imageURL="<?php echo $root_url; ?>/<?php echo $_img['FileName']; ?>"
-	thumbURL="<?php echo isset($thumbs[$_img['FileName']]) ? $thumbs[$_img['FileName']] :
-	    $root_url . '/thumbs/' . $_img['FileName']; ?>"
+	thumbURL="<?php echo $root_url; ?>/thumbs/<?php echo $_img['FileName']; ?>"
 	linkURL="<?php echo $root_url; ?>/<?php echo $_img['FileName']; ?>"
 	linkTarget="_blank">
     <caption><![CDATA[<?php
 
-    if (!empty($_img['object name'])) { echo "<b>".$_img['object name']."</b><br />"; }
+    echo "<b>".$_img['object name']."</b><br />";
     if (!empty($_img['legend'])) { echo '<p>'.$_img['legend'].'</p>'; }
 	echo '<br />'.$_img['DateTimeOriginalTransformed'];
 	if (!empty($_img['GPSLatitudeTransformed']) && !empty($_img['GPSLongitudeTransformed'])) {
@@ -77,6 +72,5 @@ $gallery_attributes['title'] .= htmlentities("<br /><br /><font face=\"Arial\" s
 
 ?>]]></caption>
   </image>
-    <?php endif; ?>
 <?php endforeach; ?>
-</simpleviewergallery>
+</channel>

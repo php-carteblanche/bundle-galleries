@@ -84,7 +84,7 @@ filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=90);
 		<a href="<?php echo build_url(array(
 				'controller'=>'galleries','action'=>'photos', 'dir'=>$_dir['dirname'],
 			)); ?>" title="Voir la galerie">
-			<img src="<?php echo _GALLERIES.$_dir['dirname'].'/'.$_dir['src']; ?>" alt="<?php echo $_dir['src']; ?>" width="325" height="260" style="width:325px;height:260px;" border="0" /></a>
+			<img src="<?php echo get_path('galleries').$_dir['dirname'].'/'.$_dir['src']; ?>" alt="<?php echo $_dir['src']; ?>" width="325" height="260" style="width:325px;height:260px;" border="0" /></a>
 		<div class="cover boxcaption">
 			<h3><a href="<?php echo build_url(array(
 				'controller'=>'galleries','action'=>'photos', 'dir'=>$_dir['dirname'],

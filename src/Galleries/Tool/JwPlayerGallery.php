@@ -1,35 +1,32 @@
 <?php
 /**
- * CarteBlanche - PHP framework package - Simple Viewer bundle
- * Copyleft (c) 2013 Pierre Cassat and contributors
- * <www.ateliers-pierrot.fr> - <contact@ateliers-pierrot.fr>
- * License Apache-2.0 <http://www.apache.org/licenses/LICENSE-2.0.html>
- * Sources <http://github.com/php-carteblanche/carteblanche>
+ * This file is part of the CarteBlanche PHP framework
+ * (c) Pierre Cassat and contributors
+ * 
+ * Sources <http://github.com/php-carteblanche/bundle-galleries>
+ *
+ * License Apache-2.0
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  */
 
-namespace SimpleViewer\Tool;
+namespace Galleries\Tool;
 
-use \CarteBlanche\CarteBlanche;
 use \CarteBlanche\Abstracts\AbstractTool;
-use \Library\Helper\Directory as DirectoryHelper;
 
-class SimpleViewerGallery extends AbstractTool
+class JwPlayerGallery extends AbstractTool
 {
-	var $views_dir = 'SimpleViewer/views/';
-	var $view='simple_viewer_gallery.xml';
+	var $views_dir = 'Galleries/views/';
+	var $view='jw_player_playlist.xml';
 
-	var $images=null;
+	var $media=null;
 	private $full_images=null;
 	var $gallery_attributes=array();
 	var $root_url=null;
-	var $root_path=null;
 	var $config=array();
 	var $current_page=1;
 	var $current_dir=null;
 	private $total_pages=null;
-	
-	var $thumbs_width = 75;
-	var $thumbs_height = 75;
 
 	static $default_attributes = array(
 		'useFlickr'=>"false",
@@ -51,22 +48,12 @@ class SimpleViewerGallery extends AbstractTool
 			isset($_conf['multipage']) && true==$_conf['multipage'] && 
 			isset($_conf['pagelimit']) && count($this->images)>$_conf['pagelimit']
 		) self::buildPager($_conf['pagelimit']); 
-
-        $this->thumbs = array();
-        foreach ($this->images as $_image) {
-            $_img_path = DirectoryHelper::slashDirname($this->root_path) . $_image['FileName'];
-            $this->thumbs[$_img_path] = new \MediaProcessing\ImageFilter\ImageFilter(
-                $_img_path, null, 'resize',
-                array('max_width'=>$this->thumbs_width,'max_height'=>$this->thumbs_height)
-            );
-        }
-
+		
 		return array(
 			'config'=> $_conf,
 			'current_dir'=>$this->current_dir,
 			'root_url'=>$this->root_url,
 			'images'=>$this->images,
-			'thumbs'=>$this->thumbs,
 			'full_images'=>$this->full_images,
 			'current_page'=>$this->current_page,
 			'total_pages'=>$this->total_pages,

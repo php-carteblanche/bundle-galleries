@@ -1,13 +1,16 @@
 <?php
 /**
- * CarteBlanche - PHP framework package - Simple Viewer bundle
- * Copyleft (c) 2013 Pierre Cassat and contributors
- * <www.ateliers-pierrot.fr> - <contact@ateliers-pierrot.fr>
- * License Apache-2.0 <http://www.apache.org/licenses/LICENSE-2.0.html>
- * Sources <http://github.com/php-carteblanche/carteblanche>
+ * This file is part of the CarteBlanche PHP framework
+ * (c) Pierre Cassat and contributors
+ * 
+ * Sources <http://github.com/php-carteblanche/bundle-galleries>
+ *
+ * License Apache-2.0
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  */
 
-namespace SimpleViewer\Controller;
+namespace Galleries\Controller;
 
 use \CarteBlanche\CarteBlanche;
 use \CarteBlanche\Abstracts\AbstractControllerConfigurable;
@@ -16,23 +19,23 @@ use \CarteBlanche\Model\ImageModel;
 use \Library\Helper\Directory as DirectoryHelper;
 
 /**
- * SimpleViewer controller : get gelleries for SimpleViewer
+ * Galleries controller : get gelleries for Galleries
  *
- * @author 		Piero Wbmstr <piero.wbmstr@gmail.com>
+ * @author 		Piero Wbmstr <piwi@ateliers-pierrot.fr>
  */
-class Galleries extends AbstractControllerConfigurable
+class Galleries
+    extends AbstractControllerConfigurable
 {
 
 	/**
 	 * The default global template file
 	 */
-	static $template = 'SimpleViewer/views/template.htm';
-	static $template_xml = 'SimpleViewer/views/template.xml';
+	static $template_xml = 'Galleries/views/template.xml.php';
 
 	/**
 	 * The controller views directory
 	 */
-	static $views_dir = 'SimpleViewer/views/';
+	static $views_dir = 'Galleries/views/';
 
     protected $galleries_dir;
     protected $galleries_path;
@@ -51,9 +54,6 @@ class Galleries extends AbstractControllerConfigurable
             );
         }
         $_abs_gal = CarteBlanche::getPath('web_dir').$this->galleries_dir;
-        if (!file_exists($_abs_gal)) {
-            $_abs_gal = CarteBlanche::getPath('web_path').$this->galleries_dir;
-        }
         if (file_exists($_abs_gal) && is_dir($_abs_gal)) {
             $this->galleries_path = $_abs_gal;
         } else {
@@ -97,7 +97,7 @@ echo '<pre>';
 var_export($_alldirs);
 exit('yo');
 */
-		return array(self::$views_dir.'index.htm', array(
+		return array(self::$views_dir.'index', array(
             '_alldirs'=>$_alldirs,
 			'title'=>!empty($config['title']) ? $config['title'] : 'accueil',
 		));
@@ -121,7 +121,7 @@ exit('yo');
 
 		$galleryURL = $this->getContainer()->get('router')->buildUrl(array('controller'=>'galleries','action'=>'videosGallery', 'dir'=>$dir));
 
-		return array(self::$views_dir.'jw_player_2.htm', array(
+		return array(self::$views_dir.'jw_player_2', array(
             'vid_url'=>CarteBlanche::getPath('root_http').$this->galleries_dir.$_dir->getDirname().'/'.$vids_data[$vid],
 //			'playlist_url'=>$galleryURL,
             'player_key' => isset($jw_player_config['key']) ? $jw_player_config['key'] : null,
@@ -151,7 +151,7 @@ exit('yo');
 			if ($_i->getExtension()=='mp4') $img_data[] = $_i->getInfos();
 		}
 //echo '<pre>';var_export($img_data);exit('yo');
-		$embed = new \SimpleViewer\Tool\JwPlayerGallery(array(
+		$embed = new \Galleries\Tool\JwPlayerGallery(array(
 			'current_page' => $page,
 			'current_dir' => $dir,
 			'config' => $jw_player_config,
@@ -186,7 +186,7 @@ exit('yo');
 			));
 		}
 
-		$embed = new \SimpleViewer\Tool\SimpleViewer(array(
+		$embed = new \Galleries\Tool\SimpleViewer(array(
 			'flash_vars'=>array( 
 				'galleryURL'=>$galleryURL,
 				'baseURL' => CarteBlanche::getPath('root_http'),
@@ -220,14 +220,19 @@ exit('yo');
 			$_i->setFilename( $_img );
 			if ($_i->isImage()) $img_data[] = $_i->getInfos();
 		}
-//echo '<pre>';var_export($img_data);exit('yo');
-		$embed = new \SimpleViewer\Tool\SimpleViewerGallery(array(
+/*/
+echo '<pre>';
+var_export($_dir);
+var_export($img_data);
+exit('yo');
+//*/
+		$embed = new \Galleries\Tool\SimpleViewerGallery(array(
 			'current_page' => $page,
 			'current_dir' => $dir,
 			'config' => $simple_viewer,
 			'images' => $img_data,
 			'root_url' => CarteBlanche::getPath('root_http').$this->galleries_dir.$dir,
-			'root_path' => CarteBlanche::getPath('web_path').$this->galleries_dir.$dir,
+			'root_path' => CarteBlanche::getFullPath('web_dir').$this->galleries_dir.$dir,
 			'gallery_attributes' => array(
 				'title'=>$_dir->getDisplayDirname()
 			)
