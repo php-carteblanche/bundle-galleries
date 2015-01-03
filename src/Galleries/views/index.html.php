@@ -1,8 +1,18 @@
 <?php
+/**
+ * This file is part of the CarteBlanche PHP framework.
+ *
+ * (c) Pierre Cassat <me@e-piwi.fr> and contributors
+ *
+ * License Apache-2.0 <http://github.com/php-carteblanche/carteblanche/blob/master/LICENSE>
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 if (empty($_alldirs)) $_alldirs = array();
 $effects_types = array( 'caption', 'captionfull', 'peek', 'thecombo', 'slideright', 'slidedown' );
 
-$_template->getTemplateObject('JavascriptTag')->add(<<<EOT
+$_template->getAssetObject('JavascriptTag')->add(<<<EOT
 /*
 Sliding Boxes and Captions with JQuery
 March 2009 - By Sam Dunn - www.buildinternet.com / www.onemightyroar.com
