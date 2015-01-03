@@ -22,6 +22,4 @@ This bundle embeds the following third-parties:
 - photos are presented in pages (45 photos per page)
 - include a breadcrumb
 - generate thumbs for each photo if it doesn't exist
-
-- user login / user box info (like in Docbook)
-- 
+- user login / user box info (like in Docbook ?)
