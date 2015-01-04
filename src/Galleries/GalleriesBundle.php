@@ -12,25 +12,21 @@
 namespace Galleries;
 
 use \CarteBlanche\CarteBlanche;
+use \CarteBlanche\Abstracts\AbstractBundle;
 
 use \Library\Helper\Directory as DirectoryHelper;
 
 class GalleriesBundle
+    extends AbstractBundle
 {
 
-    protected static $bundle_config_file = 'galleries_config.ini';
-
-    public function __construct()
+    /**
+     * @param   array $options
+     * @return  mixed
+     */
+    public function init(array $options = array())
     {
-        $cfgfile = \CarteBlanche\App\Locator::locateConfig(self::$bundle_config_file);
-        if (!file_exists($cfgfile)) {
-            throw new ErrorException( 
-                sprintf('Galleries bundle configuration file not found in "%s" [%s]!', $this->getPath('config_dir'), $cfgfile)
-            );
-        }
-        $cfg = CarteBlanche::getContainer()->get('config')
-            ->load($cfgfile, true, 'galleries')
-            ->get('galleries');
+        parent::init($options);
 
         $galleries_web_dir = isset($cfg['galleries_dir']) ? $cfg['galleries_dir'] : null;
         if (!empty($galleries_web_dir)) {
