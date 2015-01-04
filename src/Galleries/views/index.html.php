@@ -12,7 +12,7 @@
 if (empty($_alldirs)) $_alldirs = array();
 $effects_types = array( 'caption', 'captionfull', 'peek', 'thecombo', 'slideright', 'slidedown' );
 
-$_template->getAssetObject('JavascriptTag')->add(<<<EOT
+$_template->getTemplateObject('JavascriptTag')->add(<<<EOT
 /*
 Sliding Boxes and Captions with JQuery
 March 2009 - By Sam Dunn - www.buildinternet.com / www.onemightyroar.com
